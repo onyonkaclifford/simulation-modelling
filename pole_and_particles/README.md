@@ -1,5 +1,4 @@
 # Pole and particles
-
 A system contains a pre-defined number of particles (n) moving left or right along a pole of
 pre-defined length (l) at a pre-defined constant velocity (v).
 
@@ -17,6 +16,9 @@ What is:
 What direction are the particles moving at the beginning of the simulation for:
 - All particles to drop off at the earliest possible time
 - All particles to drop off at the latest possible time
+
+## Attribution
+ This exercise is picked from [here](https://github.com/MarvinKweyu/TheAlgorithmCore/blob/main/PythonPrograms/motion.py)
 
 ## Tests
 To run tests: `python -m doctest -v simulation.py`
