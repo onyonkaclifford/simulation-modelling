@@ -254,7 +254,7 @@ def get_direction_permutations(number_of_particles: int) -> List[Tuple[Direction
     return permutations
 
 
-def main(length_of_pole: int, velocity: int, starting_positions: List[int], verbose: boolean = True) -> Tuple[int, int]:
+def main(length_of_pole: int, velocity: int, starting_positions: List[int], verbose: bool = True) -> Tuple[int, int]:
     """The program's entry point
     
     >>> main(214, 1, [11, 12, 7, 13, 176, 23, 191], False)
