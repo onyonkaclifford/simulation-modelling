@@ -254,15 +254,25 @@ def get_direction_permutations(number_of_particles: int) -> List[Tuple[Direction
     return permutations
 
 
-def main(length_of_pole: int, velocity: int, starting_positions: List[int]) -> None:
-    """
-    The program's entry point
+def main(length_of_pole: int, velocity: int, starting_positions: List[int], verbose: boolean = True) -> Tuple[int, int]:
+    """The program's entry point
+    
+    >>> main(214, 1, [11, 12, 7, 13, 176, 23, 191], False)
+    (39, 208)
+    
+    :param length_of_pole: how long the pole is
+    :param velocity: how fast the particles move left or right along the pole
+    :param starting_positions: location of particles at the beginning of the simulation
+    :param verbose: whether to print results of the simulation
+    :return: Tuple[int, int]
     """
     starting_positions.sort()
     direction_permutations = get_direction_permutations(len(starting_positions))
     direction_permutations_char = [["R" if j == Direction.RIGHT else "L" for j in i] for i in direction_permutations]
     poles = []
-    print("Starting positions:", starting_positions, "\n")
+    
+    if verbose:
+        print("Starting positions:", starting_positions, "\n")
 
     for permutation in direction_permutations:
         particles = []
@@ -285,8 +295,10 @@ def main(length_of_pole: int, velocity: int, starting_positions: List[int]) -> N
             else earliest_drop_off_time
         latest_drop_off_time = maximum if latest_drop_off_time == -1 or maximum > latest_drop_off_time \
             else latest_drop_off_time
-        print(f"Particles whose starting directions are {d} drop off at {t}")
-    print()
+        if verbose:
+            print(f"Particles whose starting directions are {d} drop off at {t}")
+    if verbose:
+        print()
 
     earliest_to_drop = {earliest_drop_off_time: []}
     latest_to_drop = {latest_drop_off_time: []}
@@ -296,15 +308,19 @@ def main(length_of_pole: int, velocity: int, starting_positions: List[int]) -> N
             earliest_to_drop[earliest_drop_off_time].append(d)
         if maximum == latest_drop_off_time:
             latest_to_drop[latest_drop_off_time].append(d)
-    print(
-        f"Permutations whose particles drop off earliest: "
-        f"{earliest_to_drop[earliest_drop_off_time]} at time {earliest_drop_off_time}"
-    )
-    print(
-        f"Permutations whose particles drop off latest: "
-        f"{latest_to_drop[latest_drop_off_time]} at time {latest_drop_off_time}"
-    )
+    
+    if verbose:
+        print(
+            f"Permutations whose particles drop off earliest: "
+            f"{earliest_to_drop[earliest_drop_off_time]} at time {earliest_drop_off_time}"
+        )
+        print(
+            f"Permutations whose particles drop off latest: "
+            f"{latest_to_drop[latest_drop_off_time]} at time {latest_drop_off_time}"
+        )
+    
+    return earliest_drop_off_time, latest_drop_off_time
 
 
 if __name__ == "__main__":
-    main(214, 1, [11, 12, 7, 13, 176, 23, 191])
+    time1, time2 = main(214, 1, [11, 12, 7, 13, 176, 23, 191])
